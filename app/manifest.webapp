@@ -1,0 +1,13 @@
+{
+  "name": "FxOS metronome",
+  "launch_path": "index.html",
+  "version": "1.0",
+  "release_notes": "First release",
+  "developer": {
+    "name": "tsuyogoro",
+    "url": "https://twitter.com/tsuyogoro"
+  },
+  "icons": {
+    "64": "/appicon/icon.png"
+  }
+}

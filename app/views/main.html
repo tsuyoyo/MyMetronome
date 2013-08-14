@@ -1,0 +1,28 @@
+<div class="navbar navbar-inverse">
+  <div class="navbar-inner">
+    <p class="brand navbar-text">Tempo : {{tempo}}</p>
+  </div>
+</div>
+
+<div class="metronome-area">
+  <canvas id="needle"></canvas>
+</div>
+
+<div class="label label-inverse" 
+     style="padding-bottom:20px; padding-top:20px; width:100%; bottom:0%; position:absolute;">
+  
+  <div style="margin-left:5%; margin-bottom:3px;">Tempo (10 to 200)</div>
+
+  <div style="width:90%; margin-left:5%; margin-right:5%; margin-bottom:20px;">
+    <button ng-click="addTempo(5)" style="width:10%"><i class="icon-plus"></i></button>
+    <div id="tempo-seek-bar" style="display:inline-block; _display:inline; width:80%;"></div>
+    <button ng-click="addTempo(-5)" style="width:10%"><i class="icon-minus"></i></button>
+  </div>
+  
+  <div class="btn-group" style="width:90%; margin-left:5%; margin-right:5%">
+    <button ng-click="start()" class="btn" style="width:50%;">start</button>
+    <button ng-click="stop()" class="btn" style="width:50%;">stop</button>
+  </div>
+
+</div>
+
