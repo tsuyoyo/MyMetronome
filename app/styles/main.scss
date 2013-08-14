@@ -10,7 +10,7 @@ $iconWhiteSpritePath: "../images/glyphicons-halflings-white.png";
 }
 
 #nav-area {
-  padding: 1%;
+  padding: 2%;
   font-size: 1rem;
 }
 
@@ -44,10 +44,10 @@ $iconWhiteSpritePath: "../images/glyphicons-halflings-white.png";
 }
 
 #needle {
-  width:50%;
-  height:50%;
-  margin-left:25%;
-  margin-right:25%;
-  bottom: 3%;
+  width:60%;
+  height:60%;
+  top:15%;
+  left:20%;
+  position: fixed;
 }
 
