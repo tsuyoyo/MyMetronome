@@ -1,25 +1,18 @@
-<div class="navbar navbar-inverse">
-  <div class="navbar-inner">
-    <p class="brand navbar-text">Tempo : {{tempo}}</p>
-  </div>
+<div class="label label-inverse" id="nav-area">
+  Tempo : {{tempo}}
 </div>
 
-<div class="metronome-area">
-  <canvas id="needle"></canvas>
-</div>
+<canvas id="needle"></canvas>
 
-<div class="label label-inverse" 
-     style="padding-bottom:20px; padding-top:20px; width:100%; bottom:0%; position:absolute;">
+<div class="label label-inverse" id="controller-area">
   
-  <div style="margin-left:5%; margin-bottom:3px;">Tempo (10 to 200)</div>
+  <div id="tempo-label">Tempo (10 to 200)</div>
 
-  <div style="width:90%; margin-left:5%; margin-right:5%; margin-bottom:20px;">
-    <button ng-click="addTempo(5)" style="width:10%"><i class="icon-plus"></i></button>
-    <div id="tempo-seek-bar" style="display:inline-block; _display:inline; width:80%;"></div>
-    <button ng-click="addTempo(-5)" style="width:10%"><i class="icon-minus"></i></button>
+  <div id="tempo-controller">
+    <div id="tempo-seek-bar" style="display:inline-block;  width:100%;"></div>
   </div>
-  
-  <div class="btn-group" style="width:90%; margin-left:5%; margin-right:5%">
+
+  <div id="start-stop-buttons" class="btn-group">
     <button ng-click="start()" class="btn" style="width:50%;">start</button>
     <button ng-click="stop()" class="btn" style="width:50%;">stop</button>
   </div>

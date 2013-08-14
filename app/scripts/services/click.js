@@ -26,6 +26,15 @@ angular.module('130810HackathonApp')
 
       ctx.clearRect(0, 0, canvas.width, canvas.height);
 
+      var img = new Image();
+      img.src = "./appicon/fokusuke_01.png";
+      img.onload = function() {
+        var imgWidgh = img.width * 0.1;
+        var imgHeight = img.height * 0.1;
+        ctx.drawImage(img, center_x - imgWidgh / 2, center_y - imgHeight,
+          imgWidgh, imgHeight);
+      };
+
       for (var i = 0; i < number; i++) {
         var radius = (canvas.width > canvas.height) ? canvas.height * 0.9 : canvas.width * 0.9;
 
