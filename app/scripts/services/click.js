@@ -8,72 +8,84 @@ angular.module('130810HackathonApp')
 
     var timer;
 
-    var canvas;
+    var needle;
 
-    var shouldFillCircle;
+    var click;
 
     function tempoToInterval (tempo) {
       var interval = 60 * 1000 / tempo;
       return interval;
     }
 
-    function drawNeedle (canvas, rhythm, number) {
-      var ctx = canvas.getContext('2d');
-
-      var center_x = canvas.width / 2;
-      var center_y = canvas.height;
-      var angle = 0;
-
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-      var img = new Image();
-      img.src = "./appicon/fokusuke_01.png";
-      img.onload = function() {
-        var imgWidgh = img.width * 0.1;
-        var imgHeight = img.height * 0.1;
-        ctx.drawImage(img, center_x - imgWidgh / 2, center_y - imgHeight,
-          imgWidgh, imgHeight);
-      };
-
-      for (var i = 0; i < number; i++) {
-        var radius = (canvas.width > canvas.height) ? canvas.height * 0.9 : canvas.width * 0.9;
-
-        ctx.beginPath();
-        ctx.lineWidth = 1;
-        ctx.moveTo(center_x, center_y);
-        ctx.lineTo(center_x + radius * Math.cos(angle), center_y + radius * Math.sin(angle));
-        ctx.stroke();
-
-        angle -= Math.PI / (rhythm - 1);
-      }
-
-    }
-
+ 
     // Public API here
     return {
-      startClick : function (tempo, c) {
+      startClick : function (tempo, needleCanvas, clickCanvas, rhythm) {
       	if (!timer) {
-      	  canvas = c;
-      	  shouldFillCircle = false;
+      	  needle = needleCanvas;
+          click = clickCanvas;
 
-          var beats = 0;
-          var rhythm = 4;
-          var increase = true;
+          var initAngle = Math.PI * (-1.0) / 6.0;
+          var endAngle = Math.PI * (-5.0) / 6.0;
+          var swing = Math.PI * (2.0) / 3.0;
+          var animInterval = 10; // millisec
+
+          var angle = initAngle;
+          var dAngle = swing * tempo / 60.0 * (animInterval / 1000.0) ;
+          var isLeftSwing = true;
+          var needleLength = Math.max(needle.width, needle.height) * 0.5; // 100px?
+          var beat = 1;
+
+          var clickSound = new Audio('./sounds/tone13.mp3');
+          var clickSoundHead = new Audio('./sounds/tone14.mp3'); 
+          clickSound.preload = "auto";
+          clickSoundHead.preload = "auto";
 
           timer = setInterval(function() {
-            // clickSound.mozAudioChannelType = 'content';
-            // clickSound.play();
+            var ctxNeedle = needle.getContext('2d');
+            var ctxClick = click.getContext('2d');
 
-            if (navigator.vibrate) {
-              navigator.vibrate(100);
+            var center_x = needle.width / 2;
+            var center_y = needle.height;
+
+            ctxNeedle.clearRect(0, 0, needle.width, needle.height);
+            ctxNeedle.beginPath();
+            ctxNeedle.lineWidth = 3;
+            ctxNeedle.moveTo(center_x, center_y);
+            ctxNeedle.lineTo(center_x + needleLength * Math.cos(angle), 
+              center_y + needleLength * Math.sin(angle));
+            ctxNeedle.stroke();
+
+            ctxClick.clearRect(0, 0, click.width, click.height);
+            ctxClick.beginPath();
+            ctxClick.lineWidth = 2;
+            ctxClick.strokeRect(click.width / 2 - Math.abs(needleLength * Math.cos(endAngle)), click.height * 0.42,
+             needleLength * (Math.cos(initAngle) - Math.cos(endAngle)), click.height * 0.16);
+            ctxClick.arc(center_x + needleLength * Math.cos(angle), 
+              click.height / 2.0, click.height * 0.07, 0, Math.PI*2, true);
+            ctxClick.fill();
+
+            if (isLeftSwing) {
+              angle -= dAngle;
+            } else {
+              angle += dAngle;
             }
 
-            ++beats;
-            var n = (0 == beats % rhythm) ? rhythm : beats;
-            drawNeedle(canvas, rhythm , n);
-            beats %= rhythm;
+            if ((isLeftSwing && angle <= endAngle) || (!isLeftSwing && angle >= initAngle)) {
+              isLeftSwing = !isLeftSwing;
 
-          }, tempoToInterval(tempo));
+              if (beat % rhythm == 0) {
+                clickSoundHead.play();
+                beat = 1;
+              } else {
+                clickSound.play();
+                beat++;
+              }
+
+            }
+
+          }, animInterval);
+
       	}
       },
 

@@ -1,13 +1,14 @@
 {
-  "name": "FxOS metronome",
-  "launch_path": "index.html",
+  "name": "Simple metronome",
+  "launch_path": "/index.html",
   "version": "1.0",
-  "release_notes": "First release",
+  "description": "This is a super simple metronome application.",  
   "developer": {
     "name": "tsuyogoro",
     "url": "https://twitter.com/tsuyogoro"
   },
   "icons": {
-    "64": "/appicon/icon.png"
+    "64": "/appicon/icon_64.png",
+    "128": "/appicon/icon_128.png" 
   }
 }

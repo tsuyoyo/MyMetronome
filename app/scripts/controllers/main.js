@@ -7,6 +7,10 @@ angular.module('130810HackathonApp')
 
     var needleArea = $document.context.getElementById('needle');
 
+    var clickArea = $document.context.getElementById('click');
+
+    var rythum = 4;
+
     $(function() {
       var seekBar = $("#tempo-seek-bar");
       seekBar.slider({
@@ -32,7 +36,7 @@ angular.module('130810HackathonApp')
     };    
 
     $scope.start = function () {
-      click.startClick($scope.tempo, needleArea);
+      click.startClick($scope.tempo, needleArea, clickArea, rythum);
     };
 
     $scope.stop = function () {
@@ -46,7 +50,7 @@ angular.module('130810HackathonApp')
     $scope.$watch('tempo', function() {
       if (isInitDone) {
         click.stopClick();
-        click.startClick($scope.tempo, needleArea);
+        click.startClick($scope.tempo, needleArea, clickArea, rythum);
       } else {
         isInitDone = true;
       }

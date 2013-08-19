@@ -259,7 +259,7 @@ module.exports = function (grunt) {
             // added for FxOS
             'manifest.webapp',
             'sounds/*',
-            'appicon/icon.png',
+            'appicon/*',
           ]
         }, {
           expand: true,
